@@ -1,0 +1,39 @@
+Pasos para crear un servidor en Docker con Nginx y certificados ssl
+
+
+1. Creamos nuestra clave y la autofirmamos.
+
+# openssl req -x509 -sha256 -nodes -newkey rsa:2048 -keyout ser.key -out ser.pem
+
+2. Definimos nuestro archivo Dockerfile que contendra la estructura necesaria.
+
+Dockerfile
+--------------------------------------------------------------------
+FROM nginx
+
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+WORKDIR /var/www/html
+COPY index.html /var/www/html
+RUN chmod 755 /var/www/html/index.html
+
+COPY nginx.conf /etc/nginx/conf.d/
+
+COPY ser.pem /etc/nginx
+COPY ser.key /etc/nginx
+
+COPY nginx.conf /etc/nginx/
+
+EXPOSE 80 443
+
+CMD ["nginx", "-g", "daemon off;"]
+
+--------------------------------------------------------------------
+
+3. Creamos nuestra imagen
+
+# sudo docker build -t https .
+
+4. Creamos nuestro contendor apartir de nuesra imagen
+
+# sudo docker run --name nginx-ssl -p 80:80 443:443 -d https
