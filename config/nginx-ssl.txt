@@ -36,4 +36,4 @@ CMD ["nginx", "-g", "daemon off;"]
 
 4. Creamos nuestro contendor apartir de nuesra imagen
 
-# sudo docker run --name nginx-ssl -p 80:80 443:443 -d https
+# sudo docker run --name nginx-ssl -p 80:80 -p 443:443 -d https
