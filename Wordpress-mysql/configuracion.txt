@@ -1,0 +1,7 @@
+- Ejecutar un contendor con mysql (modificar las variables de entorno)
+
+# docker run -d --name mysql --rm -e MYSQL_ROOT_PASSWORD=admin mysql:5.7
+
+- Ejecutar un contenedor con Wordpress (modificar variables de entorno)
+
+# docker run -d --name wordpress --rm  -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_PASSWORD=admin -p 8080:80 wordpress
