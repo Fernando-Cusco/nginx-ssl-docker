@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  wordpress-app:
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: mysqldb:3306
+      WORDPRESS_DB_PASSWORD: admin
+    ports:
+      - "80:80"
+    depends_on:
+      - mysqldb
+  
+  mysqldb:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3306:3306"
+  
